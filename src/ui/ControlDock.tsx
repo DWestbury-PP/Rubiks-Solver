@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useCube } from "../state/store.ts";
-import { exportCubeImage } from "../three/exportImage.ts";
+import { captureCubeImage } from "../three/exportImage.ts";
 import {
   CameraIcon,
-  CheckIcon,
   GearIcon,
   PasteIcon,
   PauseIcon,
@@ -14,7 +13,13 @@ import {
   WandIcon,
 } from "./icons.tsx";
 
-export function ControlDock({ onPaste }: { onPaste: () => void }) {
+export function ControlDock({
+  onPaste,
+  onSnapshot,
+}: {
+  onPaste: () => void;
+  onSnapshot: (dataUrl: string) => void;
+}) {
   const busy = useCube((s) => s.active !== null || s.queue.length > 0);
   const playing = useCube((s) => s.playing);
   const solved = useCube((s) => s.solved);
@@ -28,16 +33,12 @@ export function ControlDock({ onPaste }: { onPaste: () => void }) {
   const setPlaying = useCube((s) => s.setPlaying);
 
   const [showSettings, setShowSettings] = useState(false);
-  const [saved, setSaved] = useState(false);
 
   const solving = solverStatus === "solving";
 
-  const onExport = async () => {
-    const ok = await exportCubeImage();
-    if (ok) {
-      setSaved(true);
-      setTimeout(() => setSaved(false), 1300);
-    }
+  const onSnap = () => {
+    const url = captureCubeImage();
+    if (url) onSnapshot(url);
   };
 
   return (
@@ -82,12 +83,8 @@ export function ControlDock({ onPaste }: { onPaste: () => void }) {
           <PasteIcon />
         </button>
 
-        <button
-          className={`icon-btn ${saved ? "active" : ""}`}
-          title={saved ? "Saved to Downloads" : "Save image (PNG)"}
-          onClick={onExport}
-        >
-          {saved ? <CheckIcon /> : <CameraIcon />}
+        <button className="icon-btn" title="Take a snapshot" onClick={onSnap}>
+          <CameraIcon />
         </button>
 
         <div className="settings-anchor">

@@ -4,6 +4,7 @@ import { TopBar } from "./ui/TopBar.tsx";
 import { ControlDock } from "./ui/ControlDock.tsx";
 import { MovesPanel } from "./ui/MovesPanel.tsx";
 import { ScramblePasteDialog } from "./ui/ScramblePasteDialog.tsx";
+import { SnapshotDialog } from "./ui/SnapshotDialog.tsx";
 import { parseToken } from "./cube/notation.ts";
 import { useCube } from "./state/store.ts";
 
@@ -38,6 +39,7 @@ function useKeyboard() {
 
 export default function App() {
   const [pasteOpen, setPasteOpen] = useState(false);
+  const [snapshot, setSnapshot] = useState<string | null>(null);
   useKeyboard();
 
   return (
@@ -48,7 +50,7 @@ export default function App() {
 
       <div className="overlay">
         <TopBar />
-        <ControlDock onPaste={() => setPasteOpen(true)} />
+        <ControlDock onPaste={() => setPasteOpen(true)} onSnapshot={setSnapshot} />
       </div>
 
       <MovesPanel />
@@ -56,6 +58,7 @@ export default function App() {
       <div className="hint-toast">Drag a face to turn · drag the background to orbit · scroll to zoom</div>
 
       {pasteOpen && <ScramblePasteDialog onClose={() => setPasteOpen(false)} />}
+      {snapshot && <SnapshotDialog dataUrl={snapshot} onClose={() => setSnapshot(null)} />}
     </>
   );
 }

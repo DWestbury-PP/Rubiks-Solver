@@ -99,3 +99,11 @@ export const CameraIcon = ({ size }: P) => (
     <circle cx="12" cy="12.5" r="3.1" />
   </svg>
 );
+
+export const DownloadIcon = ({ size }: P) => (
+  <svg {...base(size)}>
+    <path d="M12 3v12" />
+    <path d="M7 10l5 5 5-5" />
+    <path d="M4 21h16" />
+  </svg>
+);

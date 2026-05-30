@@ -345,6 +345,44 @@ button:disabled {
   box-shadow: var(--shadow);
   padding: 24px;
 }
+.modal.wide {
+  width: min(720px, 94vw);
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.modal-head h3 {
+  margin: 0;
+}
+.icon-btn.ghost {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+}
+.icon-btn.ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+.snapshot-frame {
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: radial-gradient(120% 120% at 50% 30%, #1a1d24 0%, #0c0d11 55%, #06070a 100%);
+  padding: 8px;
+  margin: 6px 0 4px;
+}
+.snapshot-preview {
+  display: block;
+  width: 100%;
+  max-height: 56vh;
+  object-fit: contain;
+  border-radius: 9px;
+}
 .modal h3 {
   margin: 0 0 6px;
   font-size: 18px;
