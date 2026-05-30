@@ -10,6 +10,24 @@ solver — all client-side, GPU-accelerated through WebGL.
 
 `React` · `TypeScript` · `three.js` · `Vite` · `Kociemba (cubejs)` · `Docker`
 
+<br/>
+
+<img src="docs/screenshots/scrambled.png" width="760" alt="CubeLab — a scrambled cube rendered in the studio environment" />
+
+</div>
+
+---
+
+## 📸 Gallery
+
+<div align="center">
+
+| Solved | Checkerboard pattern |
+| :---: | :---: |
+| <img src="docs/screenshots/solved.png" width="380" alt="Solved cube" /> | <img src="docs/screenshots/pattern.png" width="380" alt="Checkerboard pattern (M2 E2 S2)" /> |
+
+<sub>Real-time renders from the app — beveled cubies, glossy clear-coated stickers, a procedural studio environment, and soft contact shadows.</sub>
+
 </div>
 
 ---

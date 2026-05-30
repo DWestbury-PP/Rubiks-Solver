@@ -12,7 +12,12 @@ export function CubeScene() {
     <Canvas
       shadows
       dpr={[1, 2]}
-      gl={{ antialias: true, toneMapping: ACESFilmicToneMapping, toneMappingExposure: 1.05 }}
+      gl={{
+        antialias: true,
+        toneMapping: ACESFilmicToneMapping,
+        toneMappingExposure: 1.05,
+        preserveDrawingBuffer: true, // allow canvas snapshots / image export
+      }}
       camera={{ position: [5, 5.5, 6.5], fov: 38, near: 0.1, far: 100 }}
     >
       <Suspense fallback={null}>
