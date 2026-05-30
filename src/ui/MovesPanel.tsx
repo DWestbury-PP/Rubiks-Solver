@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCube } from "../state/store.ts";
 import { formatSequence } from "../cube/notation.ts";
 import type { Move } from "../cube/types.ts";
-import { CheckIcon, CopyIcon } from "./icons.tsx";
+import { CheckIcon, CloseIcon, CopyIcon } from "./icons.tsx";
 
 function CopyButton({ moves }: { moves: Move[] }) {
   const [copied, setCopied] = useState(false);
@@ -42,12 +42,81 @@ function Sequence({ moves, playhead }: { moves: Move[]; playhead?: number }) {
   );
 }
 
-export function MovesPanel() {
+/** The inline "paste a scramble" view that the Moves tile flips into. */
+function PasteView({ onClose }: { onClose: () => void }) {
+  const applyScrambleText = useCube((s) => s.applyScrambleText);
+  const [text, setText] = useState("");
+  const [error, setError] = useState("");
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
+  const apply = () => {
+    const n = applyScrambleText(text);
+    if (n === 0) {
+      setError("No valid moves found — try notation like R U R' U'.");
+      return;
+    }
+    onClose();
+  };
+
+  return (
+    <aside className="side paste">
+      <header>
+        <h2>Paste a scramble</h2>
+        <button className="icon-btn ghost" title="Cancel" onClick={onClose}>
+          <CloseIcon size={16} />
+        </button>
+      </header>
+      <div className="body">
+        <textarea
+          ref={ref}
+          className="paste-area"
+          placeholder="e.g.  R U R' U' R' F R2 U' R' U' R U R' F'"
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+            setError("");
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) apply();
+            if (e.key === "Escape") onClose();
+          }}
+        />
+        {error && <div className="paste-error">{error}</div>}
+        <p className="empty-note paste-hint">
+          <strong>'</strong> = counter-clockwise, <strong>2</strong> = half turn. Supports slices{" "}
+          <strong>M E S</strong>, wide <strong>Rw</strong>, and rotations <strong>x y z</strong>.
+        </p>
+        <div className="paste-actions">
+          <button className="btn" onClick={onClose}>
+            Cancel
+          </button>
+          <button className="btn primary" onClick={apply} disabled={!text.trim()}>
+            Apply
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+export function MovesPanel({
+  pasteMode,
+  onClosePaste,
+}: {
+  pasteMode: boolean;
+  onClosePaste: () => void;
+}) {
   const scramble = useCube((s) => s.scramble);
   const solution = useCube((s) => s.solution);
   const playhead = useCube((s) => s.solutionPlayhead);
   const busy = useCube((s) => s.active !== null || s.queue.length > 0);
   const moveLog = useCube((s) => s.moveLog);
+
+  if (pasteMode) return <PasteView onClose={onClosePaste} />;
 
   const hasContent = scramble.length > 0 || solution.length > 0;
 
@@ -61,9 +130,7 @@ export function MovesPanel() {
         {solution.length > 0 && (
           <div className="seq-block">
             <div className="seq-head">
-              <span>
-                Solution · {solution.length} moves
-              </span>
+              <span>Solution · {solution.length} moves</span>
               <CopyButton moves={solution} />
             </div>
             <Sequence moves={solution} playhead={busy ? playhead : undefined} />

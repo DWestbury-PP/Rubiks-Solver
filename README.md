@@ -122,7 +122,7 @@ src/
     CubeScene.tsx        Canvas, lighting, environment, shadows, controls
     CubeMesh.tsx         cubie meshes, layer-turn animation, face-drag interaction
     CameraDirector.tsx   intelligent auto-orbit / face-follow
-  ui/                    TopBar, ControlDock, MovesPanel, ScramblePasteDialog, icons
+  ui/                    TopBar, ControlDock, MovesPanel (+ inline paste), SnapshotDialog, icons
 ```
 
 **Staying correct.** The cube is modelled as 26 small cubies, each carrying coloured

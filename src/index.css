@@ -326,6 +326,50 @@ button:disabled {
   background: rgba(255, 255, 255, 0.12);
 }
 
+/* ---- inline paste view (Moves tile flips into this) ---- */
+.side.paste {
+  width: 320px;
+}
+.paste-area {
+  width: 100%;
+  min-height: 116px;
+  resize: vertical;
+  border-radius: 11px;
+  background: #0c0d12;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 11px 13px;
+  outline: none;
+}
+.paste-area:focus {
+  border-color: var(--accent);
+}
+.paste-hint {
+  margin: 10px 0 0;
+}
+.paste-hint strong {
+  color: #cdddff;
+}
+.paste-error {
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 8px;
+}
+.paste-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.paste-actions .btn {
+  flex: 1;
+  height: 40px;
+  padding: 0 14px;
+  font-size: 13.5px;
+}
+
 /* ---- modal ---- */
 .scrim {
   position: fixed;

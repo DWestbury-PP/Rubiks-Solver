@@ -15,9 +15,11 @@ import {
 
 export function ControlDock({
   onPaste,
+  pasteActive,
   onSnapshot,
 }: {
   onPaste: () => void;
+  pasteActive: boolean;
   onSnapshot: (dataUrl: string) => void;
 }) {
   const busy = useCube((s) => s.active !== null || s.queue.length > 0);
@@ -79,7 +81,12 @@ export function ControlDock({
 
         <div className="sep" />
 
-        <button className="icon-btn" title="Paste a scramble" onClick={onPaste} disabled={busy}>
+        <button
+          className={`icon-btn ${pasteActive ? "active" : ""}`}
+          title="Paste a scramble"
+          onClick={onPaste}
+          disabled={busy}
+        >
           <PasteIcon />
         </button>
 
