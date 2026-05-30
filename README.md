@@ -139,10 +139,42 @@ hardware-accelerated PBR rendering that runs anywhere.
 
 ## 🤝 Contributing & experimenting
 
-This is a playground — fork it, remix it, build something weird. Ideas that would be
-fun: alternate visual themes (glass/neon), an optimal-solver toggle, a speed-timer with
-stats, solve-step explanations, or bigger cubes. PRs and forks welcome; no permission
-needed.
+This is a playground — fork it, remix it, build something weird. PRs and forks are
+welcome; no permission needed. Below are some sample features people might enjoy
+picking up. None are claimed — grab whatever looks fun.
+
+**📱 Mobile & tablet friendliness**
+
+- Bottom-sheet fallback for the paste / snapshot UI on small screens (the side
+  tile is currently hidden below 720px, so those flows aren't reachable there).
+- Larger touch targets and a touch-tuned control dock; respect safe-area insets
+  (notches / home indicator).
+- Touch gestures: one-finger drag to turn a face, two-finger drag to orbit,
+  pinch to zoom; optional haptics (`navigator.vibrate`) on each move.
+- A landscape layout, and an installable **PWA** with offline support (the app is
+  already fully client-side).
+
+**🎨 Look & feel**
+
+- Alternate visual themes (the Glass & neon and Matte modern directions), plus a
+  light mode.
+- Colorblind-friendly sticker patterns/symbols and a `prefers-reduced-motion` mode.
+- Adjustable cube color schemes.
+
+**🧩 Cube & solver**
+
+- An optimal-solver toggle (God's-number ≤ 20) alongside the two-phase solver.
+- A teaching mode that explains each solve step (e.g. CFOP stages).
+- A speed-timer with stats (Ao5 / Ao12) and a session history.
+- Bigger cubes (2×2, 4×4) and a saved pattern library.
+- Share a cube state or scramble via URL; import scrambles from common timer formats.
+
+**🛠 Engineering**
+
+- Code-split the three.js/drei bundle to shrink first load.
+- Unit/E2E tests around the move engine, solver round-trips, and UI flows.
+- Snapshot export options (resolution, transparent background, JPEG).
+- A keyboard-shortcuts overlay (`?`).
 
 ## 📄 License
 
