@@ -50,6 +50,8 @@ solver — all client-side, GPU-accelerated through WebGL.
 - **Solve** — a near-optimal two-phase solution (~20–23 moves), computed in a Web
   Worker so the UI never stutters. The full solution is captured in standard notation
   with live playback highlighting, and is one-click copyable.
+- **Export** — snapshot the current view to a PNG (composited onto the backdrop)
+  with the camera button; saves to your browser's download folder.
 - **Keyboard** — `R U F L D B` (hold `⇧` for prime), `M E S`, `x y z`; `space`
   pauses / resumes playback.
 - **Minimal, modern UI** — a single floating dock keeps Scramble and Solve front and
@@ -79,6 +81,7 @@ Prefer to run it from source? See [Local development](#-local-development) below
 | Scramble | **Scramble** button, or paste your own |
 | Solve | **Solve** button |
 | Pause / resume playback | `space` |
+| Save a PNG render | Camera button in the dock |
 
 ## ✍️ Notation
 

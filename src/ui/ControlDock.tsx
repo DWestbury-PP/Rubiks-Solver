@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useCube } from "../state/store.ts";
+import { exportCubeImage } from "../three/exportImage.ts";
 import {
+  CameraIcon,
+  CheckIcon,
   GearIcon,
   PasteIcon,
   PauseIcon,
@@ -25,8 +28,17 @@ export function ControlDock({ onPaste }: { onPaste: () => void }) {
   const setPlaying = useCube((s) => s.setPlaying);
 
   const [showSettings, setShowSettings] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const solving = solverStatus === "solving";
+
+  const onExport = async () => {
+    const ok = await exportCubeImage();
+    if (ok) {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 1300);
+    }
+  };
 
   return (
     <div className="dock-wrap">
@@ -68,6 +80,14 @@ export function ControlDock({ onPaste }: { onPaste: () => void }) {
 
         <button className="icon-btn" title="Paste a scramble" onClick={onPaste} disabled={busy}>
           <PasteIcon />
+        </button>
+
+        <button
+          className={`icon-btn ${saved ? "active" : ""}`}
+          title={saved ? "Saved to Downloads" : "Save image (PNG)"}
+          onClick={onExport}
+        >
+          {saved ? <CheckIcon /> : <CameraIcon />}
         </button>
 
         <div className="settings-anchor">

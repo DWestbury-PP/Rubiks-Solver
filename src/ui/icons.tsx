@@ -92,3 +92,10 @@ export const CheckIcon = ({ size }: P) => (
     <path d="M5 12.5 10 17 19 7" />
   </svg>
 );
+
+export const CameraIcon = ({ size }: P) => (
+  <svg {...base(size)}>
+    <path d="M4 8.5a2 2 0 0 1 2-2h1.2l1-1.6h5.6l1 1.6H18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
+    <circle cx="12" cy="12.5" r="3.1" />
+  </svg>
+);
