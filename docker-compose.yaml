@@ -1,0 +1,10 @@
+services:
+  cubelab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cubelab:latest
+    container_name: cubelab
+    ports:
+      - "8080:80"
+    restart: unless-stopped

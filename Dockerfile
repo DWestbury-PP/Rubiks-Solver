@@ -1,0 +1,28 @@
+# syntax=docker/dockerfile:1
+
+# ---- Stage 1: build the static site ----
+FROM node:22-alpine AS build
+WORKDIR /app
+
+# Install dependencies against the lockfile for reproducible builds.
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Build the production bundle.
+COPY . .
+RUN npm run build
+
+# ---- Stage 2: serve with nginx ----
+FROM nginx:1.27-alpine AS runtime
+
+# Static assets and SPA-aware nginx config.
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+# Lightweight container healthcheck.
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget -q -O - http://127.0.0.1:80/ >/dev/null 2>&1 || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]
